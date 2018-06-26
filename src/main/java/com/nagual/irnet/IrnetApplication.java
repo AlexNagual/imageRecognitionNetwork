@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IrnetApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(IrnetApplication.class, args);
     NNObject.getInstance().init();
+    SpringApplication.run(IrnetApplication.class, args);
   }
 }

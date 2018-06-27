@@ -1,6 +1,7 @@
 package com.nagual.irnet.controller;
 
-import com.nagual.irnet.model.network.NNObject;
+import com.nagual.irnet.model.network.DL4J.DL4JObject;
+import com.nagual.irnet.model.network.boofcv.BoofCVObject;
 import com.nagual.irnet.model.pojo.Image;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +24,12 @@ public class PredictController {
   @ResponseBody
   public Image addUser(@ModelAttribute("url") Image image) {
     if (image != null && !image.getUrl().isEmpty()) {
-      image.setPrediction(NNObject.getInstance().getNeuralNetwork().predict(image.getUrl()));
-      logger.info("Success for image: " + image.getUrl());
+      //image.setPrediction(DL4JObject.getInstance().getDl4JNetwork().predict(image.getUrl()));
+      image.setPrediction(BoofCVObject.getInstance().getBoofCVNetwork().predict(image.getUrl()));
+      logger.info(String.format("На картинке url: %s обнаружен $s", image.getUrl(), image.getPrediction()));
       return image;
     } else {
-      logger.info("Fail");
+      logger.info("Не получилось :(");
       return null;
     }
 

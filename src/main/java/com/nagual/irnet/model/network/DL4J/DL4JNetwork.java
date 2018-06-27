@@ -1,4 +1,4 @@
-package com.nagual.irnet.model.network;
+package com.nagual.irnet.model.network.DL4J;
 
 import com.nagual.irnet.model.utils.AWSUtil;
 import org.datavec.image.loader.NativeImageLoader;
@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class NeuralNetwork {
-  Logger logger = LoggerFactory.getLogger(NeuralNetwork.class);
+public class DL4JNetwork {
+  Logger logger = LoggerFactory.getLogger(DL4JNetwork.class);
   private ComputationGraph vgg16 = null;
 
-  public NeuralNetwork() {
+  public DL4JNetwork() {
     loadModel();
   }
   private String awsBucket = "neural.network.models";

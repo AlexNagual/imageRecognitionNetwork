@@ -88,7 +88,11 @@
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.11.354</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.boofcv</groupId>
+            <artifactId>boofcv-core</artifactId>
+            <version>0.30</version>
+        </dependency>
     </dependencies>
 
     <build>

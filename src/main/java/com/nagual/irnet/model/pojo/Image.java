@@ -1,15 +1,15 @@
 package com.nagual.irnet.model.pojo;
 
 public class Image {
-  private String url;
+  private String photo;
   private String prediction;
 
-  public String getUrl() {
-    return url;
+  public String getPhoto() {
+    return photo;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
 
   public String getPrediction() {

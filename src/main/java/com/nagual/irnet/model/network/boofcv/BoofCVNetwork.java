@@ -38,22 +38,20 @@ public class BoofCVNetwork {
     classifier = getClassifier(CLASSIFIER_PATH, nin_imagenet);
     categories = classifier != null ? classifier.getCategories() : Collections.emptyList();
   }
-/*
-  public String predict(String urlImage) {
-    try {
-      URL url = new URL(urlImage);
-      classifier.classify(getImage(url));
-      return categories.get(classifier.getBestResult());
-    } catch (MalformedURLException e) {
-      System.out.println("Во время загрузки изображения произошла ошибка");
-    }
-    return "";
-  }
-*/
+
   public String predict(String photoStream) {
     ByteArrayInputStream inputStream = new ByteArrayInputStream(photoStream.getBytes(StandardCharsets.UTF_8));
     try {
       classifier.classify(getImage(inputStream));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return categories.get(classifier.getBestResult());
+  }
+
+  public String predict(File file) {
+    try {
+      classifier.classify(getImage(file));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -65,7 +63,15 @@ public class BoofCVNetwork {
     //File bmpFile = new File("photo.bmp");
     BufferedImage buffered = ImageIO.read(file);
     //BufferedImage buffered = UtilImageIO.loadImage(file.getName());
-    //file.delete();
+    file.delete();
+    Planar<GrayF32> image = new Planar<>(GrayF32.class, buffered.getWidth(), buffered.getHeight(), 3);
+    ConvertBufferedImage.convertFromPlanar(buffered,image,true,GrayF32.class);
+    return image;
+  }
+
+  private Planar<GrayF32> getImage(File file) throws IOException {
+    BufferedImage buffered = ImageIO.read(file);
+    file.delete();
     Planar<GrayF32> image = new Planar<>(GrayF32.class, buffered.getWidth(), buffered.getHeight(), 3);
     ConvertBufferedImage.convertFromPlanar(buffered,image,true,GrayF32.class);
     return image;

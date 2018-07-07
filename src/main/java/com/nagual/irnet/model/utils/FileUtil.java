@@ -1,5 +1,7 @@
 package com.nagual.irnet.model.utils;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.*;
 
 public class FileUtil {
@@ -20,5 +22,21 @@ public class FileUtil {
       e.printStackTrace();
     }
     return new File(filename);
+  }
+
+  public static File convert(MultipartFile file)
+  {
+    File convFile = new File(file.getOriginalFilename());
+    try {
+      convFile.createNewFile();
+      FileOutputStream fos = null;
+      fos = new FileOutputStream(convFile);
+      fos.write(file.getBytes());
+      fos.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return convFile;
   }
 }

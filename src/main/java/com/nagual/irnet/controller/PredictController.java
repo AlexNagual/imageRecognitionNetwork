@@ -23,7 +23,7 @@ public class PredictController {
     return "Predict";
   }
 
-  @RequestMapping(value="/predict", method=RequestMethod.POST)
+  @RequestMapping(value="/predict")
   @ResponseBody
   public Image addUser(@ModelAttribute("photo") Image image) {
     if (image != null && !image.getPhoto().isEmpty()) {

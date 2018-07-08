@@ -6,7 +6,6 @@ import com.nagual.irnet.model.utils.FileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 
@@ -20,16 +19,14 @@ public class FileUploadController {
   }
 
   @PostMapping("/")
-  public Image handleFileUpload(@RequestParam("file") MultipartFile file) {
-
+  public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file) {
     storageService.store(file);
     File file1 = FileUtil.convert(file);
     Image image = new Image();
     image.setPhoto(file.getOriginalFilename());
-
     image.setPrediction(BoofCVObject.getInstance().getBoofCVNetwork().predict(file1));
 
-    return image;
+    return image.getPrediction();
   }
 
 }
